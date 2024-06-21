@@ -4,6 +4,6 @@ namespace CoinCap.API.Interface
 {
     public interface ICoinCapService
     {
-        Task<Result<CoinCapBaseResponse>> GetAllCryptoAvailable(string? searchBy);
+        Task<Result<ClientResponse>> GetAllCryptoAvailable(string? searchByint, int pageSize, int pageNumber);
     }
 }

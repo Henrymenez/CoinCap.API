@@ -1,18 +1,43 @@
-﻿namespace CoinCap.API.Dtos.Response
+﻿using Newtonsoft.Json;
+
+namespace CoinCap.API.Dtos.Response
 {
     public record CoinCapBaseResponse
     {
-        public string Id { get; set; } = string.Empty;
-        public string Rank { get; set; } = string.Empty;
-        public string Symbol { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-        public string Supply { get; set; } = string.Empty;
-        public string MaxSupply { get; set; } = string.Empty;
-        public string MarketCapUsd { get; set; } = string.Empty;
-        public string VolumeUsd24Hr { get; set; } = string.Empty;
-        public string PriceUsd { get; set; } = string.Empty;
-        public string ChangePercent24Hr { get; set; } = string.Empty;
-        public string Vwap24Hr { get; set; } = string.Empty;
-        public string Explorer { get; set; } = string.Empty;
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("rank")]
+        public string Rank { get; set; }
+
+        [JsonProperty("symbol")]
+        public string Symbol { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("supply")]
+        public string Supply { get; set; }
+
+        [JsonProperty("maxSupply")]
+        public string MaxSupply { get; set; }
+
+        [JsonProperty("marketCapUsd")]
+        public string MarketCapUsd { get; set; }
+
+        [JsonProperty("volumeUsd24Hr")]
+        public string VolumeUsd24Hr { get; set; }
+
+        [JsonProperty("priceUsd")]
+        public string PriceUsd { get; set; }
+
+        [JsonProperty("changePercent24Hr")]
+        public string ChangePercent24Hr { get; set; }
+
+        [JsonProperty("vwap24Hr")]
+        public string Vwap24Hr { get; set; }
+
+        [JsonProperty("explorer")]
+        public string Explorer { get; set; }
     }
 }
