@@ -17,7 +17,6 @@ namespace CoinCap.API.Dtos.Response
         {
             this.Data = new List<CoinCapBaseResponse> { result };
         }
-        
 
         public IEnumerable<CoinCapBaseResponse> GetPaginatedData(int pageSize,int pageNumber)
         {

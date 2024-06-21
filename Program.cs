@@ -1,5 +1,6 @@
 
 using CoinCap.API.Implementation;
+using CoinCap.API.Infrastructure;
 using CoinCap.API.Interface;
 
 namespace CoinCap.API
@@ -9,9 +10,13 @@ namespace CoinCap.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            IConfiguration Configuration = builder.Configuration;
+            builder.Services.Configure<CoinCapConfig>(Configuration.GetSection("CoinCapConfig"));
+            
 
             // Add services to the container.
             builder.Services.AddTransient<ICoinCapService, CoinCapService>();
+            
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
