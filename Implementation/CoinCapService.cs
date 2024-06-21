@@ -18,42 +18,56 @@ namespace CoinCap.API.Implementation
 
         public async Task<Result<ClientResponse>> GetAllCryptoAvailable(string? searchBy, int pageSize, int pageNumber)
         {
-            string url = _Config.CoinCapUrl;
-            var infoMessage = await AppUtils.clientCall(url);
-            if (infoMessage.IsSuccessStatusCode)
+            try
             {
-                var stringContent = await infoMessage.Content.ReadAsStringAsync();
-                ClientResponse result = JsonConvert.DeserializeObject<ClientResponse>(stringContent)!;
-
-                if (!string.IsNullOrEmpty(searchBy))
+                string url = _Config.CoinCapUrl;
+                var infoMessage = await AppUtils.clientCall(url);
+                if (infoMessage.IsSuccessStatusCode)
                 {
-                    var searchresult = AppUtils.SearchCryptoByName(result, searchBy);
+                    var stringContent = await infoMessage.Content.ReadAsStringAsync();
+                    ClientResponse result = JsonConvert.DeserializeObject<ClientResponse>(stringContent)!;
 
-                    if (searchresult != null)
+                    if (!string.IsNullOrEmpty(searchBy))
                     {
-                        result.ReplaceDataWithSingleResult(searchresult);
-                    }
-                }
+                        var searchresult = AppUtils.SearchCryptoByName(result, searchBy);
 
-                result.Data = result.GetPaginatedData(pageSize, pageNumber);
+                        if (searchresult != null)
+                        {
+                            result.ReplaceDataWithSingleResult(searchresult);
+                        }
+                    }
+
+                    result.Data = result.GetPaginatedData(pageSize, pageNumber);
+
+                    return new Result<ClientResponse>
+                    {
+                        Data = result,
+                        HttpStatusCode = 200,
+                        IsSuccess = true,
+                        Message = "Successful"
+                    };
+                }
 
                 return new Result<ClientResponse>
                 {
-                    Data = result,
-                    IsSuccess = true,
-                    Message = "Successful"
+                    IsSuccess = false,
+                    HttpStatusCode = 500,
+                    Message = "Requst could not be completed at this time"
                 };
             }
-
-            return new Result<ClientResponse>
+            catch (Exception ex)
             {
-                IsSuccess = false,
-                Message = "Failed to complete requst"
-            };
+                return new Result<ClientResponse>
+                {
+                    IsSuccess = false,
+                    HttpStatusCode = 500,
+                    Message = ex.Message
+                };
+            }
         }
 
 
-       
+
 
     }
 }

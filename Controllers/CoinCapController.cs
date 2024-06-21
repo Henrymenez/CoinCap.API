@@ -23,7 +23,7 @@ namespace CoinCap.API.Controllers
             {
                 return Ok(result);
             }
-           return BadRequest(result);
+           return StatusCode(result.HttpStatusCode,result);
         }
     }
 }

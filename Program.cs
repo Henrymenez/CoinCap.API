@@ -2,6 +2,7 @@
 using CoinCap.API.Implementation;
 using CoinCap.API.Infrastructure;
 using CoinCap.API.Interface;
+using CoinCap.API.Middlewares;
 
 namespace CoinCap.API
 {
@@ -32,7 +33,7 @@ namespace CoinCap.API
             }
 
             app.UseHttpsRedirection();
-
+            app.ConfigureExceptionHandler();
             app.UseAuthorization();
 
 
